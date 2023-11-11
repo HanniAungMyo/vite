@@ -17,11 +17,12 @@ class Invoice {
     productRender()
     }
     observer(){
-recordObserver()
-    }
+        recordObserver()
+            }
 init(){
     console.log("Invoice App Started")
     this.observer()
+
     this.initialRender()
     this.listener()
 }
