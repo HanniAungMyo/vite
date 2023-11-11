@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import products from "../core/data";
 import { app, recordList } from "../core/slelctor";
 export const createRecordRow = (id, productName, productPrice, quantity) => {
@@ -125,10 +126,37 @@ export const addRecordHandler = (event) => {
   
  export const recordRowDelHandler = (event) => {
     const recordRow = event.target.closest(".record-row");
-    if (confirm("Are U sure to delete?")) {
-      recordRow.remove();
-      
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Comfirm"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        recordRow.remove()
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success"
+        // });
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Row delete successful....."
+        });
+      }
+    });
   };
 
   export const recordTotal = () => {
