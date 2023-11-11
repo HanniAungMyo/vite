@@ -1,5 +1,5 @@
 import products from "../core/data";
-import { app } from "../core/slelctor";
+import { app, recordList } from "../core/slelctor";
 export const createRecordRow = (id, productName, productPrice, quantity) => {
     const recordRow = document.createElement("tr");
     recordRow.className = "border-b border-neutral-200 group";
@@ -101,7 +101,7 @@ export const addRecordHandler = (event) => {
       recordList.append(
         createRecordRow(id, name, price, formData.get("quantity"))
       );
-      recordTotal();
+      
     }
   
     addRecord.reset();
@@ -120,14 +120,14 @@ export const addRecordHandler = (event) => {
       parseInt(currentRecordQuantity.innerText) + parseInt(quantity);
     currentRecordRowCost.innerText =
       currentRecordQuantity.innerText * currentRecordRowPrice.innerText;
-    recordTotal();
+    
   };
   
  export const recordRowDelHandler = (event) => {
     const recordRow = event.target.closest(".record-row");
     if (confirm("Are U sure to delete?")) {
       recordRow.remove();
-      recordTotal();
+      
     }
   };
 
@@ -140,3 +140,17 @@ export const addRecordHandler = (event) => {
       0
     );
   };
+
+  export const recordObserver=()=>{
+    const process=()=>{
+console.log("U change in recordList")
+recordTotal()
+    }
+    const Options={
+      childList:true,
+      subtree:true
+    }
+
+    const observer=new MutationObserver(process)
+    observer.observe(recordList,Options)
+  }

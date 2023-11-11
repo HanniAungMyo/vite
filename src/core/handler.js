@@ -1,4 +1,4 @@
-import { recordRowDelHandler } from "../app/record";
+import { recordRowDelHandler, recordRowQuantityIncrement } from "../app/record";
 import { costTotal } from "./slelctor";
 
 export const manageProductHandler = () => {
